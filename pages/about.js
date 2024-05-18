@@ -12,17 +12,17 @@ export default function About() {
   return (
     <>
       <Head />
-      {/* <Hero /> */}
-      {/* <LogoGrid /> */}
-      {/* <GradientWrapper>
+      <Hero />
+      <LogoGrid />
+      <GradientWrapper>
         <Features />
         <CTA />
       </GradientWrapper>
       <ToolKit />
       <GradientWrapper>
         <Testimonials />
-      </GradientWrapper> */}
-      {/* <FooterCTA /> */}
+      </GradientWrapper>
+      <FooterCTA />
     </>
   );
 }

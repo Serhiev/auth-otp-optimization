@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
+import jwt from 'jsonwebtoken'
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -10,15 +12,19 @@ export const AuthProvider = ({ children }) => {
   // TODO: get token from BE
   useEffect(() => {
     const storedToken = localStorage.getItem('Authorization');
+    const secretKey = 'your-secret-key'
 
-    if (storedToken) {
+    const isValidToken = storedToken ? jwt.verify(storedToken, secretKey) : false
+
+    if (isValidToken) {
       setToken(storedToken)
     } else {
+      setToken(null)
       if (router.pathname !== '/login' && router.pathname !== '/about') {
         router.push('/login');
       }
     }
-  }, [router]);
+  }, [router])
 
   const login = async (username, password) => {
     const res = await fetch('/api/auth/login', {
