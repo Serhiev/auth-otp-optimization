@@ -1,16 +1,22 @@
-import Link from 'next/link'
+import { useEffect, useState, useContext } from 'react'
+import AuthContext from '../../../context/AuthContext';
+
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import Link from 'next/link'
+
 import Brand from '../Brand'
 import NavLink from '../NavLink'
 
 const Navbar = () => {
+    const { isAuthenticated } = useContext(AuthContext);
 
     const [state, setState] = useState(false)
     const { events } = useRouter();
 
-    const navigation = [
+    const navigation = isAuthenticated() ? [
         { title: "Home", path: "/" },
+        { title: "About", path: "/about" }
+    ] : [
         { title: "About", path: "/about" }
     ]
 
@@ -73,8 +79,11 @@ const Navbar = () => {
                                 <NavLink
                                     href="/login"
                                     className="block font-medium text-sm text-white bg-gray-800 hover:bg-gray-600 active:bg-gray-900 md:inline"
+                                    onClick={() => {
+                                        isAuthenticated() ? localStorage.removeItem('Authorization') : null
+                                    }}
                                 >
-                                    Log in
+                                    {isAuthenticated() ? 'Sign out' : 'Log in'}
                                 </NavLink>
                             </li>
                         </ul>

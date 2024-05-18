@@ -1,15 +1,20 @@
+import { useContext } from 'react';
+import AuthContext from '../context/AuthContext';
+
 import Head from "next/head";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
-import Checkbox from "../components/ui/Checkbox";
 
-export default function GetStarted() {
-  const servicesItems = [
-    "Mobile development",
-    "UI/UX Design",
-    "web development",
-    "SEO",
-  ];
+export default function Login() {
+  const { login } = useContext(AuthContext);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.elements[0].value;
+    const password = form.elements[1].value;
+    login(email, password)
+  };
 
   return (
     <>
@@ -31,7 +36,7 @@ export default function GetStarted() {
             </div>
             <div className='flex-1 mt-12 sm:max-w-lg lg:max-w-md lg:mt-0'>
               <form
-                onSubmit={(e) => e.preventDefault()}
+                onSubmit={handleSubmit}
                 className='space-y-5 font-medium'>
                 <div>
                   <label>Email</label>
@@ -49,29 +54,9 @@ export default function GetStarted() {
                     type='password'
                     required
                     className='mt-2 focus:border-indigo-600'
-                    minLength={10}
+                    minLength={3}
                   />
                 </div>
-                {/* <div>
-                  <label>Message</label>
-                  <textarea
-                    aria-label='Message'
-                    required
-                    className='w-full mt-2 h-36 px-3 py-2 resize-none appearance-none bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg'></textarea>
-                </div>
-                <div>
-                  <label>Service</label>
-                  <ul className='mt-3 flex flex-wrap gap-x-8 gap-y-3 font-normal max-w-md sm:gap-x-16'>
-                    {servicesItems.map((item, idx) => (
-                      <li key={idx} className='flex gap-x-2 items-center'>
-                        <Checkbox id={`service-${idx}`} />
-                        <label htmlFor={`service-${idx}`} className='text-sm'>
-                          {item}
-                        </label>
-                      </li>
-                    ))}
-                  </ul>
-                </div> */}
                 <div className='pt-1'>
                   <Button className='w-full text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 ring-offset-2 ring-indigo-600 focus:ring'>
                     Log in
