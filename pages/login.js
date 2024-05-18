@@ -11,9 +11,9 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
-    const email = form.elements[0].value;
+    const phone_number = form.elements[0].value;
     const password = form.elements[1].value;
-    login(email, password)
+    login(phone_number, password)
   };
 
   return (
@@ -39,13 +39,15 @@ export default function Login() {
                 onSubmit={handleSubmit}
                 className='space-y-5 font-medium'>
                 <div>
-                  <label>Email</label>
+                  <label>Phone number</label>
                   <Input
-                    aria-label='Email'
-                    type='email'
+                    aria-label='Tel'
+                    type='tel'
                     required
                     className='mt-2 focus:border-indigo-600'
-                  />
+                    onChange={e => {
+                      e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                    }}                  />
                 </div>
                 <div>
                   <label>Password</label>
