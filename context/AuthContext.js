@@ -14,23 +14,23 @@ export const AuthProvider = ({ children }) => {
     const storedToken = localStorage.getItem('Authorization');
     const secretKey = 'your-secret-key'
 
-    const isValidToken = storedToken ? jwt.verify(storedToken, secretKey) : false
-
-    if (isValidToken) {
+    try {
+      jwt.verify(storedToken, secretKey)
       setToken(storedToken)
-    } else {
+    } catch (error) {
       setToken(null)
       if (router.pathname !== '/login' && router.pathname !== '/about') {
         router.push('/login');
       }
     }
+
   }, [router])
 
-  const login = async (username, password) => {
+  const login = async (phoneNumber, password) => {
     const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ phoneNumber, password }),
     });
 
     if (res.ok) {
