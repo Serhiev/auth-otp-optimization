@@ -8,6 +8,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
+  const [needOTP, setNeedOTP] = useState(false);
   const router = useRouter();
 
   // TODO: get token from BE
@@ -37,12 +38,34 @@ export const AuthProvider = ({ children }) => {
 
     if (res.ok) {
       const data = await res.json();
-      window.localStorage.setItem('Authorization', `${data.token}`)
 
+      if(data.needOTP) {
+        return setNeedOTP(true)
+      }
+
+      window.localStorage.setItem('Authorization', `${data.token}`)
       setToken(data.token);
       router.push('/');
     } else {
       window.alert('User is not found. Please, try again.')
+    }
+  };
+
+  const loginOTP = async (phoneNumber, password, otp) => {
+    const res = await fetch('/api/auth/login-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phoneNumber, password, otp }),
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      window.localStorage.setItem('Authorization', `${data.token}`)
+      setToken(data.token);
+      setNeedOTP(false)
+      router.push('/');
+    } else {
+      window.alert('Something went wrong. Please, try again.')
     }
   };
 
@@ -60,7 +83,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, login, logout, isAuthenticated, getToken }}>
+    <AuthContext.Provider value={{ token, login, loginOTP, logout, isAuthenticated, getToken, needOTP }}>
       {children}
     </AuthContext.Provider>
   );

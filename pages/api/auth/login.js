@@ -15,25 +15,25 @@ export default async function handler(req, res) {
     const userId = Object.keys(usersData).find(userId => {
       const user = usersData[userId];
       return user.phoneNumber === phoneNumber && user.password === password;
-    });  
+    });
     const userDataDB = userId ? usersData[userId] : null;
-    
+
     if (userId) {
       // Update metaUserData
       const ip = req.connection.remoteAddress;
       metaUserData.ip = ip
-      metaUserData.phoneNumber = phoneNumber
-      metaUserData.password = password
       const updateUserRef = ref(database, `users/${userId}`);
       update(updateUserRef, metaUserData);
 
-      const isMetaSame = isEqualObj(userDataDB, metaUserData)
+      const isMetaSame = isEqualObj(userDataDB, metaUserData, ['phoneNumber', 'password', 'otp'])
 
-      if(!isMetaSame) {
-        console.log("AZAZA send otp")
-        // const phoneNumber = '+380959469876'; // User's phone number
-        // const otp = '123456'; // Generated OTP
+      if (!isMetaSame) {
+        res.status(200).json({ message: `OTP is sended to ${phoneNumber}`, needOTP: true });
+
+        const generatedOTP = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000
         // sendOtpViaSMS(phoneNumber, otp);
+
+        return update(updateUserRef, { otp: generatedOTP });
       }
 
       const token = createToken({ phoneNumber });

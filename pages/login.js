@@ -6,14 +6,16 @@ import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 
 export default function Login() {
-  const { login } = useContext(AuthContext);
+  const { login, loginOTP, needOTP } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
     const phone_number = form.elements[0].value;
     const password = form.elements[1].value;
-    login(phone_number, password)
+    const otp = form.elements[2].value;
+
+    form.elements.length === 3 ? login(phone_number, password) : loginOTP(phone_number, password, otp)
   };
 
   return (
@@ -47,7 +49,8 @@ export default function Login() {
                     className='mt-2 focus:border-indigo-600'
                     onChange={e => {
                       e.target.value = e.target.value.replace(/[^0-9]/g, '');
-                    }}                  />
+                    }}
+                  />
                 </div>
                 <div>
                   <label>Password</label>
@@ -59,6 +62,22 @@ export default function Login() {
                     minLength={3}
                   />
                 </div>
+                {needOTP && (
+                  <div>
+                    <label>OTP</label>
+                    <Input
+                      aria-label='Otp'
+                      type='tel'
+                      required
+                      className='mt-2 focus:border-indigo-600'
+                      onChange={e => {
+                        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                      }}
+                      minLength={6}
+                      maxLength={6}
+                    />
+                  </div>
+                )}
                 <div className='pt-1'>
                   <Button className='w-full text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 ring-offset-2 ring-indigo-600 focus:ring'>
                     Log in
