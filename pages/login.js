@@ -11,7 +11,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
-    const phone_number = form.elements[0].value;
+    const phone_number = `+${form.elements[0].value}`;
     const password = form.elements[1].value;
     const otp = form.elements[2].value;
 
@@ -59,7 +59,7 @@ export default function Login() {
                     type='password'
                     required
                     className='mt-2 focus:border-indigo-600'
-                    minLength={3}
+                    minLength={8}
                   />
                 </div>
                 {needOTP && (
