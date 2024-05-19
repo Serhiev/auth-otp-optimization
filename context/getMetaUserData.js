@@ -38,15 +38,15 @@ export const getMetaUserData = async () => {
     ip: ''
   };
   
-  try {
-    const geolocation = await getGeolocation();
-    userData.geolocation = `${geolocation.latitude} ${geolocation.longitude}`;
-  } catch (error) {
-    userData.geolocationError = error.message;
-  }
+  // try {
+  //   const geolocation = await getGeolocation();
+  //   userData.geolocation = `${geolocation.latitude} ${geolocation.longitude}`;
+  // } catch (error) {
+  //   userData.geolocationError = error.message;
+  // }
 
   // Виведення об'єкта зібраних даних у консоль
   // console.log(userData);
-  
+
   return userData
 }
