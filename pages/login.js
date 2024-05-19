@@ -28,12 +28,12 @@ export default function Login() {
           <div className='max-w-lg mx-auto gap-12 justify-between lg:flex lg:max-w-none'>
             <div className='max-w-lg sm:text-center lg:text-left'>
               <h1 className='text-gray-800 text-3xl font-semibold sm:text-4xl'>
-                How our auth works?
+                How website auth works?
               </h1>
               <p className='mt-3'>
                 At our authentication system, we offer you the highest level of security and convenience.<br /><br />
-                Upon the first login to the user account, the system automatically requests a One-Time Password (OTP) for two-factor authentication, providing an additional layer of protection. <br /><br />
-                For your security, we store unique data such as your geolocation, device, and IP address. With each subsequent login, the system automatically compares your stored data with the new ones, and if they haven't changed, OTP won't be required, allowing you to access your account faster and more conveniently. However, if any of these unique characteristics detect changes, you'll receive an OTP request to confirm your identity. This ensures a high level of security and protection for your account.
+                For your security, we store unique data such as your geolocation, device, and IP address. With each subsequent login, the system automatically compares your stored data with the new ones, and if they haven't changed, OTP won't be required, allowing you to access your account faster and more conveniently. <br /><br />
+                However, if any of these unique characteristics detect changes, you'll receive an OTP request to confirm your identity. This ensures a high level of security and protection for your account.
               </p>
             </div>
             <div className='flex-1 mt-12 sm:max-w-lg lg:max-w-md lg:mt-0'>

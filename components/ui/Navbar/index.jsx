@@ -83,7 +83,7 @@ const Navbar = () => {
                                         isAuthenticated() ? localStorage.removeItem('Authorization') : null
                                     }}
                                 >
-                                    {isAuthenticated() ? 'Sign out' : 'Log in'}
+                                    {isAuthenticated() ? 'Log out' : 'Log in'}
                                 </NavLink>
                             </li>
                         </ul>
