@@ -42,7 +42,7 @@ export const getMetaUserData = async () => {
     const geolocation = await getGeolocation();
     userData.geolocation = `${truncateDecimal(geolocation.latitude)} ${truncateDecimal(geolocation.longitude)}`;
   } catch (error) {
-    userData.geolocationError = error.message;
+    userData.geolocation = error.message;
   }
 
   return userData
