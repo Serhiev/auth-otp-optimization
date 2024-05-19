@@ -10,7 +10,7 @@ const socialInfo = [
 ]
 
 const Footer = () => (
-    <footer className="fixed bottom-0 w-full">
+    <footer className="bottom-0 w-full">
         <div className="custom-screen pt-16">
             <div className="mt-10 py-10 border-t items-center justify-between sm:flex">
                 <p className="text-gray-600">© 2024 Auth Portal by Serhii Vem.</p>
