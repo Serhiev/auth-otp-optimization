@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import jwt from 'jsonwebtoken'
+import { getMetaUserData } from './getMetaUserData';
 
 const AuthContext = createContext();
 
@@ -27,10 +28,11 @@ export const AuthProvider = ({ children }) => {
   }, [router])
 
   const login = async (phoneNumber, password) => {
+    const metaUserData = await getMetaUserData()
     const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ phoneNumber, password }),
+      body: JSON.stringify({ phoneNumber, password, metaUserData }),
     });
 
     if (res.ok) {
@@ -40,7 +42,7 @@ export const AuthProvider = ({ children }) => {
       setToken(data.token);
       router.push('/');
     } else {
-      console.error('Login failed');
+      window.alert('User is not found. Please, try again.')
     }
   };
 
