@@ -45,8 +45,5 @@ export const getMetaUserData = async () => {
   //   userData.geolocationError = error.message;
   // }
 
-  // Виведення об'єкта зібраних даних у консоль
-  // console.log(userData);
-
   return userData
 }

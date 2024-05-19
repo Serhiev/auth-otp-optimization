@@ -66,7 +66,7 @@ export default function Login() {
                   <div>
                     <label>OTP</label>
                     <Input
-                      aria-label='Otp'
+                      aria-label='OTP'
                       type='tel'
                       required
                       className='mt-2 focus:border-indigo-600'

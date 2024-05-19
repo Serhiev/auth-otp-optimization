@@ -11,10 +11,9 @@ export const AuthProvider = ({ children }) => {
   const [needOTP, setNeedOTP] = useState(false);
   const router = useRouter();
 
-  // TODO: get token from BE
   useEffect(() => {
     const storedToken = localStorage.getItem('Authorization');
-    const secretKey = 'your-secret-key'
+    const secretKey = process.env.JWTSecretKey
 
     try {
       jwt.verify(storedToken, secretKey)
