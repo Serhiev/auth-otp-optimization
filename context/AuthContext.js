@@ -1,30 +1,38 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import jwt from 'jsonwebtoken'
 import { getMetaUserData } from './getMetaUserData';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(null);
-  const [needOTP, setNeedOTP] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem('Authorization');
-    const secretKey = process.env.JWTSecretKey
+  const [token, setToken] = useState(null);
+  const [needOTP, setNeedOTP] = useState(false);
 
-    try {
-      jwt.verify(storedToken, secretKey)
-      setToken(storedToken)
-    } catch (error) {
-      setToken(null)
-      if (router.pathname !== '/login' && router.pathname !== '/about') {
-        router.push('/login');
+  useEffect(() => {
+    //TODO: create an interceptor and verify only when res.status === 401
+    const verifyToken = async () => {
+      try {
+        const storedToken = localStorage.getItem('Authorization');
+        await fetch('/api/auth/jwt-verify', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': storedToken
+          },
+        });
+        setToken(storedToken)
+      } catch (error) {
+        setToken(null)
+        if (router.pathname !== '/login' && router.pathname !== '/about') {
+          router.push('/login');
+        }
       }
     }
 
+    verifyToken()
   }, [router])
 
   const login = async (phoneNumber, password) => {
@@ -38,7 +46,7 @@ export const AuthProvider = ({ children }) => {
     if (res.ok) {
       const data = await res.json();
 
-      if(data.needOTP) {
+      if (data.needOTP) {
         return setNeedOTP(true)
       }
 

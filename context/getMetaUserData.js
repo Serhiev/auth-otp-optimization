@@ -26,7 +26,7 @@ export const getMetaUserData = async () => {
     });
   };
 
-  
+
   // Збір даних
   const userData = {
     userAgent,
@@ -37,13 +37,21 @@ export const getMetaUserData = async () => {
     geolocation: '',
     ip: ''
   };
-  
-  // try {
-  //   const geolocation = await getGeolocation();
-  //   userData.geolocation = `${geolocation.latitude} ${geolocation.longitude}`;
-  // } catch (error) {
-  //   userData.geolocationError = error.message;
-  // }
+
+  try {
+    const geolocation = await getGeolocation();
+    userData.geolocation = `${truncateDecimal(geolocation.latitude)} ${truncateDecimal(geolocation.longitude)}`;
+  } catch (error) {
+    userData.geolocationError = error.message;
+  }
 
   return userData
+}
+
+const truncateDecimal = (number) => {
+  // Convert the number to a string with two decimal places
+  const truncatedNumberStr = parseFloat(number).toFixed(2);
+  // Convert the truncated number string back to a number
+  const truncatedNumber = parseFloat(truncatedNumberStr);
+  return truncatedNumber;
 }

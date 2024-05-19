@@ -31,7 +31,7 @@ export default async function handler(req, res) {
         res.status(200).json({ message: `OTP is sended to ${phoneNumber}`, needOTP: true });
 
         const generatedOTP = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000
-        // sendOtpViaSMS(phoneNumber, otp);
+        sendOtpViaSMS(phoneNumber, generatedOTP);
 
         return update(updateUserRef, { otp: generatedOTP });
       }

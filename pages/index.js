@@ -1,14 +1,6 @@
 import { useState, useEffect } from "react";
 
 import Head from "next/head";
-import GradientWrapper from "../components/GradientWrapper";
-import CTA from "../components/ui/CTA";
-import Features from "../components/ui/Features";
-import FooterCTA from "../components/ui/FooterCTA";
-import Hero from "../components/ui/Hero";
-import LogoGrid from "../components/ui/LogoGrid";
-import Testimonials from "../components/ui/Testimonials";
-import ToolKit from "../components/ui/ToolKit";
 
 export default function Home() {
   const [response, setResponse] = useState(null)
@@ -43,25 +35,13 @@ export default function Home() {
                 This is a protected page
               </h1>
               <p className='mt-3'>
-                Let's try to get a request to protected route. <br/><br/>
+                Let's try to get a request to protected route. <br /><br />
                 Protected route response: {response?.message}
               </p>
             </div>
           </div>
         </div>
       </div>
-
-      {/* <Hero /> */}
-      {/* <LogoGrid /> */}
-      {/* <GradientWrapper>
-        <Features />
-        <CTA />
-      </GradientWrapper>
-      <ToolKit />
-      <GradientWrapper>
-        <Testimonials />
-      </GradientWrapper> */}
-      {/* <FooterCTA /> */}
     </>
   );
 }

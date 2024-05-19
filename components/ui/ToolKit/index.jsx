@@ -1,6 +1,5 @@
 import SectionWrapper from "../../SectionWrapper"
 import Image from "next/image"
-import wordpress from "../../../public/icons/wordpress.svg"
 import nextjs from "../../../public/icons/nextjs.svg"
 import tailwind from "../../../public/icons/tailwind.svg"
 import nodejs from "../../../public/icons/nodejs.svg"
@@ -8,22 +7,11 @@ import vercel from "../../../public/icons/vercel.svg"
 import figma from "../../../public/icons/figma.svg"
 
 const ToolKit = () => {
-
     const features = [
-        {
-            icon: wordpress,
-            title: "Wordpress",
-            desc: "WordPress is an open-source content management system (CMS)."
-        },
         {
             icon: nextjs,
             title: "Next.js",
             desc: "Next.js is a React framework that gives you building blocks to create web apps."
-        },
-        {
-            icon: tailwind,
-            title: "Tailwind CSS",
-            desc: "Tailwind CSS is basically a utility-first CSS framework for rapidly building UIs."
         },
         {
             icon: nodejs,
@@ -34,6 +22,11 @@ const ToolKit = () => {
             icon: vercel,
             title: "Vercel",
             desc: "Vercel is a cloud platform that enables developers to host web apps."
+        },
+        {
+            icon: tailwind,
+            title: "Tailwind CSS",
+            desc: "Tailwind CSS is basically a utility-first CSS framework for rapidly building UIs."
         },
         {
             icon: figma,
@@ -50,7 +43,7 @@ const ToolKit = () => {
                         Work with the best toolkit
                     </h2>
                     <p>
-                        These are a few of our favourite things
+                        These are a few of my favourite things
                     </p>
                 </div>
                 <div className="mt-12">
