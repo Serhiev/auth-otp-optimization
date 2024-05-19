@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const secretKey = 'your-secret-key'; // Зберігайте цей ключ в безпеці
+const secretKey = process.env.JWTSecretKey
 
 const createToken = (payload, expiresIn = '1h') => {
   return jwt.sign(payload, secretKey, { expiresIn });
